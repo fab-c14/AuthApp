@@ -37,20 +37,28 @@ app.get('/', (req, res) => {
 app.post('/sign', (req, res) => {
     const {email,password} = req.body // Use req.body instead of req.params
     // console.log(email,password);
+    let user = []
     fs.readFile("users.csv", 'utf8', (err, data) => {
         if (err) {
             console.error('Error reading file:', err);
         } else {
             // console.log('File content:', data);
             const lines = data.split('\n');
-            console.log(lines)
-            // lines.forEach(user=>{
-            //     if(email===u)
-            // })
-            
+            lines.forEach(line=>{
+                if(line.includes(email)){
+                    user = line
+                }
+            })
         }
     });
-    res.send('Form submitted successfully!');
+    console.log(user)
+    // console.log(found)
+    if(user.length){
+        res.send("user  not found!!!")
+    }
+    else{
+        res.send('Form submitted successfully!');
+    }
 });
 
 app.post('/register',async (req,res)=>{
