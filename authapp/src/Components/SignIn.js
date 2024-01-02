@@ -19,7 +19,11 @@ class SignIn extends Component{
     };
     
     DetectUser = ()=>{
-        console.log(this.state.user)
+        // console.log(this.state.user)
+        fetch("https://3000-fabc14-authapp-cwl7uap5yd6.ws-us107.gitpod.io/sign")
+        .then(response => response.json())
+        .then(data=>console.log(data))
+        .catch(err=>console.log(err))
     }
 
     render(){
@@ -40,7 +44,7 @@ class SignIn extends Component{
                         </div>
                     </fieldset>
                     <div className="">
-                        <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="button" value="Sign in" onClick={this.DetectUser}/>
+                        <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in" onSubmit={this.DetectUser}/>
                     </div>
                     <div className="lh-copy mt3">
                         <a href="#0" className="f6 link dim black db" onClick={()=>routeChange('register')}>Register</a>
