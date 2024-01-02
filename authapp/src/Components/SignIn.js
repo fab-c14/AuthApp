@@ -20,7 +20,7 @@ class SignIn extends Component{
     
     DetectUser = ()=>{
         // console.log(this.state.user)
-        fetch("https://3000-fabc14-authapp-cwl7uap5yd6.ws-us107.gitpod.io/sign")
+        fetch("https://3000-fabc14-authapp-cwl7uap5yd6.ws-us107.gitpod.io/sign",{method:'post'})
         .then(response => response.json())
         .then(data=>console.log(data))
         .catch(err=>console.log(err))
@@ -31,7 +31,7 @@ class SignIn extends Component{
         return(
             <article className="br2 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 center">
                 <main className="pa4 black-80">
-                    <form className="measure center">
+                    <form className="measure center" method="post">
                     <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
                         <legend className="f4 fw6 ph0 mh0">Sign In</legend>
                         <div className="mt3">
