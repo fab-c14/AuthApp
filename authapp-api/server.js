@@ -6,6 +6,9 @@ const app = express();
 const fs = require('fs').promises;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const cors = require('cors')
+
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -54,7 +57,7 @@ app.post('/sign', async (req, res) => {
             user = user.split(',');
             const result = await verifyPassword(password,user[2])
             if(result){
-                res.send('Success Sign In');
+                res.json('Success Sign In');
             } else{
                 res.status(400).json("Password Didn't Match")
             }

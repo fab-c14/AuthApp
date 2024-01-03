@@ -20,7 +20,7 @@ class App extends Component {
         <div className="App">
       {
         (this.state.route==='home')
-        ? <Home />
+        ? <Home routeChange = {this.routeChange} />
         : (
          <>
          {

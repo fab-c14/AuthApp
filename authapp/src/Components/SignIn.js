@@ -12,17 +12,17 @@ class SignIn extends Component {
     }
 
     handleEmail = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         this.setState({ user: { ...this.state.user, email: e.target.value } });
     };
 
     handlePassword = (e) => {
-        e.preventDefault(); // Prevent the default form submission behavior
+        // e.preventDefault(); // Prevent the default form submission behavior
         this.setState({ user: { ...this.state.user, password: e.target.value } });
     };
 
     DetectUser = () => {
-        fetch("https://3000-fabc14-authapp-3nliq9qbhfn.ws-us107.gitpod.io/sign", {
+        fetch("https://3000-fabc14-authapp-pb67ocaxj38.ws-us107.gitpod.io/sign", {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -33,7 +33,7 @@ class SignIn extends Component {
         .then(response => response.json())
         .then((data) => {
             if (data) {
-                this.routeChange('home');
+                this.props.routeChange('home');
             } else {
                 // Handle the case where data is falsy, e.g., user not found
                 console.log("User not found or other error occurred");
@@ -47,7 +47,8 @@ class SignIn extends Component {
         return (
             <article className="br2 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 center">
                 <main className="pa4 black-80">
-                    <form className="measure center" onSubmit={this.DetectUser}>
+                <form className="measure center" onSubmit={(e) => { e.preventDefault();}} >
+
                         <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
                             <legend className="f4 fw6 ph0 mh0">Sign In</legend>
                             <div className="mt3">
@@ -60,7 +61,7 @@ class SignIn extends Component {
                             </div>
                         </fieldset>
                         <div className="">
-                            <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in" onSubmit={this.DetectUser} />
+                            <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in" onClick={this.DetectUser} />
                         </div>
                         <div className="lh-copy mt3">
                             <a href="#0" className="f6 link dim black db" onClick={() => routeChange('register')}>Register</a>
