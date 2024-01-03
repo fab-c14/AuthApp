@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 // const bcrypt = require('bcrypt-nodejs');
 const port = process.env.PORT || 3000; // Correct order for setting the port
 const app = express();
-const fs = require('fs')
+const fs = require('fs').promises;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 app.use(express.json());
@@ -34,32 +34,40 @@ app.get('/', (req, res) => {
     res.send('Hello, Express!');
 });
 
-app.post('/sign', (req, res) => {
-    const {email,password} = req.body // Use req.body instead of req.params
-    // console.log(email,password);
-    let user = []
-    fs.readFile("users.csv", 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error reading file:', err);
+app.post('/sign', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const data = await fs.readFile("users.csv", 'utf8');
+
+        const lines = data.split('\n');
+        let user = [];
+
+        lines.forEach(line => {
+            if (line.includes(email)) {
+                user.push(line);
+            }
+        });
+        
+        if (user.length>0) {
+            user = user[0];
+            user = user.split(',');
+            const result = await verifyPassword(password,user[2])
+            if(result){
+                res.send('Success Sign In');
+            } else{
+                res.status(400).json("Password Didn't Match")
+            }
         } else {
-            // console.log('File content:', data);
-            const lines = data.split('\n');
-            lines.forEach(line=>{
-                if(line.includes(email)){
-                    user = line
-                }
-            })
+
+            res.status(400).json("User Not Found Please Register First")
         }
-    });
-    console.log(user)
-    // console.log(found)
-    if(user.length){
-        res.send("user  not found!!!")
-    }
-    else{
-        res.send('Form submitted successfully!');
+    } catch (err) {
+        console.error('Error reading file:', err);
+        res.send('Error reading file');
     }
 });
+
 
 app.post('/register',async (req,res)=>{
     const {name,email,password} = req.body 

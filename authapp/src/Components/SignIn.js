@@ -12,16 +12,17 @@ class SignIn extends Component {
     }
 
     handleEmail = (e) => {
+        e.preventDefault()
         this.setState({ user: { ...this.state.user, email: e.target.value } });
     };
 
     handlePassword = (e) => {
+        e.preventDefault(); // Prevent the default form submission behavior
         this.setState({ user: { ...this.state.user, password: e.target.value } });
     };
 
-    DetectUser = (event) => {
-        event.preventDefault(); // Prevent the default form submission behavior
-        fetch("https://3000-fabc14-authapp-cwl7uap5yd6.ws-us107.gitpod.io/sign", {
+    DetectUser = () => {
+        fetch("https://3000-fabc14-authapp-3nliq9qbhfn.ws-us107.gitpod.io/sign", {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -29,9 +30,16 @@ class SignIn extends Component {
                 password: this.state.user.password
             })
         })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
+        .then(response => response.json())
+        .then((data) => {
+            if (data) {
+                this.routeChange('home');
+            } else {
+                // Handle the case where data is falsy, e.g., user not found
+                console.log("User not found or other error occurred");
+            }
+        })
+        .catch(err => console.log(err));
     }
 
     render() {
@@ -52,7 +60,7 @@ class SignIn extends Component {
                             </div>
                         </fieldset>
                         <div className="">
-                            <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in" />
+                            <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in" onSubmit={this.DetectUser} />
                         </div>
                         <div className="lh-copy mt3">
                             <a href="#0" className="f6 link dim black db" onClick={() => routeChange('register')}>Register</a>

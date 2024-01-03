@@ -1,13 +1,15 @@
 import './App.css';
 import 'tachyons';
+import { Component } from 'react';
 import SignIn from './Components/SignIn';
 import Register from './Components/Register';
-import { Component } from 'react';
+import Home from './Components/Home';
+
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      route:'home'
+      route:'sign'
     }
   }
   routeChange = (route)=>{
@@ -18,8 +20,16 @@ class App extends Component {
         <div className="App">
       {
         (this.state.route==='home')
-        ? <SignIn routeChange={this.routeChange}/>
-        : <Register routeChange={this.routeChange} />
+        ? <Home />
+        : (
+         <>
+         {
+          (this.state.route==='sign')
+          ? <SignIn routeChange={this.routeChange} />
+          : <Register routeChange={this.routeChange} />
+         }
+         </>
+         )
       }
       </div>
     )
