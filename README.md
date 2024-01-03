@@ -39,7 +39,7 @@ We welcome contributions to make AuthApp even better! If you have ideas for impr
 
 1. **Fork the repository**: Click the "Fork" button on the top right corner of this repository.
    
-2. **Clone the forked repository**: Clone the forked repository to your local machine using the following command:
+2. **Clone the forked repository**: Clone the forked repository to your local machine and done...
 
 
 
