@@ -33,4 +33,13 @@ AuthApp is a full-stack web application built with React and Node.js, providing 
     # In the client directory
     npm start
    ```
+## Contributing
+
+We welcome contributions to make AuthApp even better! If you have ideas for improvements or new features, feel free to contribute. To contribute, follow these steps:
+
+1. **Fork the repository**: Click the "Fork" button on the top right corner of this repository.
+   
+2. **Clone the forked repository**: Clone the forked repository to your local machine using the following command:
+
+
 
