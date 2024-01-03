@@ -3,16 +3,16 @@ import 'tachyons';
 import './Home.css'; // Import additional styles
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     const { routeChange } = this.props;
     return (
       <div className="tc bg-light-gray pa4">
         <div className="flex justify-between items-center mb4">
-          <h1 className="f2">Welcome to Your Marvelous React App</h1>
+          <h1 className="f2 center">Welcome to Your Marvelous React App</h1>
           <button className="f5 link dim ph3 pv2 mb2 dib white bg-red self-end" onClick={() => routeChange('sign')}>
             Sign Out
           </button>

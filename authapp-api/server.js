@@ -57,7 +57,7 @@ app.post('/sign', async (req, res) => {
             user = user.split(',');
             const result = await verifyPassword(password,user[2])
             if(result){
-                res.json('Success Sign In');
+                res.json('success');
             } else{
                 res.status(400).json("Password Didn't Match")
             }
@@ -76,17 +76,16 @@ app.post('/register',async (req,res)=>{
     const {name,email,password} = req.body 
     hashedPassword = await hashPassword(password);
     const formattedData = {name,email,hashedPassword}
-    // console.log(formattedData);
-    // formattedData = [formattedData.name,formattedData.email,formattedData.hashedPassword]
-    // console.log(formattedData)
+ 
     fs.appendFile("users.csv", `${formattedData.name},${formattedData.email},${formattedData.hashedPassword}\n`, (err) => {
         if (err) {
-            console.error('Error appending to file:', err);
+            res.status(400).json("there is something wrong!!");
         } else {
-            console.log('Data appended to file successfully.');
+            // console.log('Data appended to file successfully.');
+            res.json("success");
         }
     });
-    res.send("Registered User")
+   
 })
 
 

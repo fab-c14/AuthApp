@@ -27,7 +27,24 @@ class Register extends Component {
 //     console.log(this.state);
 //   };
   registerUser = ()=>{
-
+    fetch("https://3000-fabc14-authapp-pb67ocaxj38.ws-us107.gitpod.io/register",{
+      method:'post',
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        name:this.state.user.name,
+        email:this.state.user.email,
+        password:this.state.user.password
+      })
+    })
+    .then(response=>response.json())
+    .then((data)=>{
+      if(data==='success'){
+        console.log('Congratulations User Registered')
+      }else{
+        console.log("something is going wrong")
+      }
+    })
+    .catch(err=>console.log("Error Has Occured Try Again"))
   }
 
   render() {
@@ -35,7 +52,7 @@ class Register extends Component {
     return (
       <article className="br2 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 center">
         <main className="pa4 black-80">
-          <form className="measure center" method="post" action="/register">
+          <form className="measure center"  onSubmit={this.registerUser}>
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
               <legend className="f4 fw6 ph0 mh0">Register</legend>
               <div className="mt3">
@@ -54,10 +71,10 @@ class Register extends Component {
               </div>
             </fieldset>
             <div className="">
-              <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Register" onSubmit={this.registerUser}/>
+              <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Register"/>
             </div>
             <div className="lh-copy mt3">
-              <a href="#0" className="f6 link dim black db" onClick={() => routeChange('sign')}>Sign In</a>
+              <a href="#0" className="f5 link dim black b db" onClick={() => routeChange('sign')}>Sign In</a>
             </div>
           </form>
         </main>

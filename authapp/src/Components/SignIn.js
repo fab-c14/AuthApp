@@ -32,7 +32,7 @@ class SignIn extends Component {
         })
         .then(response => response.json())
         .then((data) => {
-            if (data) {
+            if (data==='success') {
                 this.props.routeChange('home');
             } else {
                 // Handle the case where data is falsy, e.g., user not found
@@ -64,7 +64,7 @@ class SignIn extends Component {
                             <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in" onClick={this.DetectUser} />
                         </div>
                         <div className="lh-copy mt3">
-                            <a href="#0" className="f6 link dim black db" onClick={() => routeChange('register')}>Register</a>
+                            <a href="#0" className="f5 link dim black b db" onClick={() => routeChange('register')}>Register</a>
                         </div>
                     </form>
                 </main>
