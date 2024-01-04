@@ -72,21 +72,20 @@ app.post('/sign', async (req, res) => {
 });
 
 
-app.post('/register',async (req,res)=>{
-    const {name,email,password} = req.body 
-    hashedPassword = await hashPassword(password);
-    const formattedData = {name,email,hashedPassword}
- 
-    fs.appendFile("users.csv", `${formattedData.name},${formattedData.email},${formattedData.hashedPassword}\n`, (err) => {
-        if (err) {
-            res.status(400).json("there is something wrong!!");
-        } else {
-            // console.log('Data appended to file successfully.');
-            res.json("success");
-        }
-    });
-   
-})
+app.post('/register',async (req, res) => {
+    const { name, email, password } = req.body;
+    const hashedPassword = await hashPassword(password);
+    const formattedData = { name, email, hashedPassword };
+    
+    try {
+      fs.appendFile("users.csv", `${formattedData.name},${formattedData.email},${formattedData.hashedPassword}\n`);
+      res.json("success");
+    } catch (err) {
+      console.error("Error In Registering User:", err.message);
+      res.status(400).json("There is something wrong!!");
+    }
+  });
+  
 
 
 

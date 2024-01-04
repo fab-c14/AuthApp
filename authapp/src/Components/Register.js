@@ -27,7 +27,7 @@ class Register extends Component {
 //     console.log(this.state);
 //   };
   registerUser = ()=>{
-    fetch("https://3000-fabc14-authapp-pb67ocaxj38.ws-us107.gitpod.io/register",{
+    fetch("https://3000-fabc14-authapp-c54b2md0xte.ws-us107.gitpod.io/register",{
       method:'post',
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
@@ -37,11 +37,13 @@ class Register extends Component {
       })
     })
     .then(response=>response.json())
-    .then((data)=>{
-      if(data==='success'){
-        console.log('Congratulations User Registered')
-      }else{
-        console.log("something is going wrong")
+    .then((data) => {
+      
+      if (data === 'success') {
+        this.props.routeChange('sign')
+        console.log('Congratulations User Registered');
+      } else {
+        console.log('Error In Registering User');
       }
     })
     .catch(err=>console.log("Error Has Occured Try Again"))
@@ -52,7 +54,7 @@ class Register extends Component {
     return (
       <article className="br2 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 center">
         <main className="pa4 black-80">
-          <form className="measure center"  onSubmit={this.registerUser}>
+          <form className="measure center"  onSubmit={(e) => { e.preventDefault();}}>
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
               <legend className="f4 fw6 ph0 mh0">Register</legend>
               <div className="mt3">
@@ -71,7 +73,7 @@ class Register extends Component {
               </div>
             </fieldset>
             <div className="">
-              <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Register"/>
+              <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Register" onClick={this.registerUser}/>
             </div>
             <div className="lh-copy mt3">
               <a href="#0" className="f5 link dim black b db" onClick={() => routeChange('sign')}>Sign In</a>

@@ -4,7 +4,8 @@
   "description": "\"backend for auth-api\"",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "build":"npm i"
   },
   "author": "fab-c14",
   "license": "ISC",
